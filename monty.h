@@ -15,13 +15,14 @@
 
 /**
  * struct var_s - struct contains main variables of the Monty interpreter
- * @len_queue: flag 0: stack, 1: queue
- * @len_stack: length of the stack
+ *
+ * @q_len: flag 0: stack, 1: queue
+ * @s_len: length of the stack
  */
 typedef struct var_s
 {
-	int len_queue;
-	size_t len_stack;
+	int q_len;
+	size_t s_len;
 } var_t;
 
 /* global flag contains queue and stack length */
@@ -29,6 +30,7 @@ extern var_t var;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
+ *
  * @n: integer
  * @prev: points to the previous element of the stack (or queue)
  * @next: points to the next element of the stack (or queue)
@@ -60,26 +62,26 @@ stack_t *add_node(stack_t **stack, const int n);
 void free_stack(int status, void *arg);
 void free_lineptr(int status, void *arg);
 void close_stream(int status, void *arg);
-void call_opcode(stack_t **stack, char *oper, unsigned int line);
+void call_opcode(stack_t **stack, char *oper, unsigned int span);
 
-void op_push(stack_t **stack, unsigned int line);
-void op_pall(stack_t **stack, unsigned int line);
-void op_pint(stack_t **stack, unsigned int line);
-void op_pop(stack_t **stack, unsigned int line);
-void op_swap(stack_t **stack, unsigned int line);
-void op_add(stack_t **stack, unsigned int line);
-void op_nop(stack_t **stack, unsigned int line);
-void op_sub(stack_t **stack, unsigned int line);
-void op_div(stack_t **stack, unsigned int line);
-void op_mul(stack_t **stack, unsigned int line);
-void op_mod(stack_t **stack, unsigned int line);
-void op_pchar(stack_t **stack, unsigned int line);
-void op_pstr(stack_t **stack, unsigned int line);
-void op_rotl(stack_t **stack, unsigned int line);
-void op_rotr(stack_t **stack, unsigned int line);
+void op_push(stack_t **stack, unsigned int span);
+void op_pall(stack_t **stack, unsigned int span);
+void op_pint(stack_t **stack, unsigned int span);
+void op_pop(stack_t **stack, unsigned int span);
+void op_swap(stack_t **stack, unsigned int span);
+void op_add(stack_t **stack, unsigned int span);
+void op_nop(stack_t **stack, unsigned int span);
+void op_sub(stack_t **stack, unsigned int span);
+void op_div(stack_t **stack, unsigned int span);
+void op_mul(stack_t **stack, unsigned int span);
+void op_mod(stack_t **stack, unsigned int span);
+void op_pchar(stack_t **stack, unsigned int span);
+void op_pstr(stack_t **stack, unsigned int span);
+void op_rotl(stack_t **stack, unsigned int span);
+void op_rotr(stack_t **stack, unsigned int span);
 
 int is_digit(char *str);
-void set_queue(stack_t **stack, unsigned int line);
-void set_op_flow(stack_t **stack, unsigned int line);
+void set_queue(stack_t **stack, unsigned int span);
+void set_op_flow(stack_t **stack, unsigned int span);
 
 #endif

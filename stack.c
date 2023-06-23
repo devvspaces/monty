@@ -23,24 +23,24 @@ int is_digit(char *str)
 /**
  * set_queue - sets the format of the data to a queue (FIFO)
  * @stack: top of the stack
- * @line: script line number
+ * @span: script span number
  */
-void set_queue(stack_t **stack, unsigned int line)
+void set_queue(stack_t **stack, unsigned int span)
 {
 	(void)stack;
-	(void)line;
-	var.len_queue = FIFO;
+	(void)span;
+	var.q_len = FIFO;
 }
 
 /**
  * set_op_flow - sets the format of the data to a stack (LIFO)
  *
  * @stack: top of the stack
- * @line: script line number
+ * @span: script span number
  */
-void set_op_flow(stack_t **stack, unsigned int line)
+void set_op_flow(stack_t **stack, unsigned int span)
 {
 	(void)stack;
-	(void)line;
-	var.len_queue = LIFO;
+	(void)span;
+	var.q_len = LIFO;
 }

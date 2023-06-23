@@ -3,9 +3,9 @@
 /**
  * op_push - pushes a data/number to stack
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_push(stack_t **stack, unsigned int line)
+void op_push(stack_t **stack, unsigned int span)
 {
 	char *str;
 	int num;
@@ -13,7 +13,7 @@ void op_push(stack_t **stack, unsigned int line)
 	str = strtok(NULL, "\n\t\r ");
 	if (str == NULL || is_digit(str))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line);
+		fprintf(stderr, "L%u: usage: push integer\n", span);
 		exit(EXIT_FAILURE);
 	}
 	num = atoi(str);
@@ -22,19 +22,19 @@ void op_push(stack_t **stack, unsigned int line)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	var.len_stack++;
+	var.s_len++;
 }
 
 /**
  * op_pall - prints all of the data/number in the stack
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_pall(stack_t **stack, unsigned int line)
+void op_pall(stack_t **stack, unsigned int span)
 {
 	stack_t *head;
 
-	(void)line;
+	(void)span;
 	head = *stack;
 	while (head != NULL)
 	{
@@ -48,15 +48,15 @@ void op_pall(stack_t **stack, unsigned int line)
 /**
  * op_pint - prints the value at the top of the stack
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_pint(stack_t **stack, unsigned int line)
+void op_pint(stack_t **stack, unsigned int span)
 {
 	stack_t *head = *stack;
 
-	if (var.len_stack == 0)
+	if (var.s_len == 0)
 	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", line);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", span);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", head->n);
@@ -65,42 +65,42 @@ void op_pint(stack_t **stack, unsigned int line)
 /**
  * op_pop - removes the top element of the stack
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_pop(stack_t **stack, unsigned int line)
+void op_pop(stack_t **stack, unsigned int span)
 {
 	stack_t *pop = *stack;
 
-	if (var.len_stack == 0)
+	if (var.s_len == 0)
 	{
-		fprintf(stderr, "L%u: can't pop an empty stack\n", line);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", span);
 		exit(EXIT_FAILURE);
 	}
 	(*stack)->next->prev = (*stack)->prev;
 	(*stack)->prev->next = (*stack)->next;
-	if (var.len_stack != 1)
+	if (var.s_len != 1)
 		*stack = (*stack)->next;
 	else
 		*stack = NULL;
 	free(pop);
-	var.len_stack--;
+	var.s_len--;
 }
 
 /**
  * op_swap - swaps the top two elements of the stack
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_swap(stack_t **stack, unsigned int line __attribute__((unused)))
+void op_swap(stack_t **stack, unsigned int span __attribute__((unused)))
 {
 	stack_t *tmp;
 
-	if (var.len_stack < 2)
+	if (var.s_len < 2)
 	{
-		fprintf(stderr, "L%u: can't swap, stack too short\n", line);
+		fprintf(stderr, "L%u: can't swap, stack too short\n", span);
 		exit(EXIT_FAILURE);
 	}
-	if (var.len_stack == 2)
+	if (var.s_len == 2)
 	{
 		*stack = (*stack)->next;
 		return;

@@ -3,22 +3,22 @@
 /**
  * op_mod - rest of the division of the second top by the top
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_mod(stack_t **stack, unsigned int line)
+void op_mod(stack_t **stack, unsigned int span)
 {
 	int n;
 
-	if (var.len_stack < 2)
+	if (var.s_len < 2)
 	{
-		fprintf(stderr, "L%u: can't mod, stack too short\n", line);
+		fprintf(stderr, "L%u: can't mod, stack too short\n", span);
 		exit(EXIT_FAILURE);
 	}
 	n = (*stack)->n;
-	op_pop(stack, line);
+	op_pop(stack, span);
 	if (n == 0)
 	{
-		fprintf(stderr, "L%u: division by zero\n", line);
+		fprintf(stderr, "L%u: division by zero\n", span);
 		exit(EXIT_FAILURE);
 	}
 	(*stack)->n %= n;
@@ -27,21 +27,21 @@ void op_mod(stack_t **stack, unsigned int line)
 /**
  * op_pchar - prints the char at the top of the stack
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_pchar(stack_t **stack, unsigned int line)
+void op_pchar(stack_t **stack, unsigned int span)
 {
 	int ch;
 
-	if (var.len_stack < 1)
+	if (var.s_len < 1)
 	{
-		fprintf(stderr, "L%u: can't pchar, stack empty\n", line);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", span);
 		exit(EXIT_FAILURE);
 	}
 	ch = (*stack)->n;
 	if (!isascii(ch))
 	{
-		fprintf(stderr, "L%u: can't pchar, value out of range\n", line);
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", span);
 		exit(EXIT_FAILURE);
 	}
 	printf("%c\n", ch);
@@ -50,9 +50,9 @@ void op_pchar(stack_t **stack, unsigned int line)
 /**
  * op_pstr - prints the string starting at the top of the stack
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_pstr(stack_t **stack, unsigned int line __attribute__((unused)))
+void op_pstr(stack_t **stack, unsigned int span __attribute__((unused)))
 {
 	stack_t *tmp;
 	int ch;
@@ -74,9 +74,9 @@ void op_pstr(stack_t **stack, unsigned int line __attribute__((unused)))
 /**
  * op_rotl - rotl rotates the stack to the top
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_rotl(stack_t **stack, unsigned int line __attribute__((unused)))
+void op_rotl(stack_t **stack, unsigned int span __attribute__((unused)))
 {
 	if (*stack)
 		*stack = (*stack)->next;
@@ -85,9 +85,9 @@ void op_rotl(stack_t **stack, unsigned int line __attribute__((unused)))
 /**
  * op_rotr - rotr rotates the stack to the bottom
  * @stack: pointer to the top node of stack
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void op_rotr(stack_t **stack, unsigned int line __attribute__((unused)))
+void op_rotr(stack_t **stack, unsigned int span __attribute__((unused)))
 {
 	if (*stack)
 		*stack = (*stack)->prev;

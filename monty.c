@@ -27,7 +27,7 @@ void free_stack(int status, void *arg)
 		free(*stack);
 		*stack = tmp;
 	}
-	var.len_stack = 0;
+	var.s_len = 0;
 }
 
 /**
@@ -75,8 +75,8 @@ int main(int argc, char *argv[])
 	char *lineptr = NULL, *oper = NULL;
 	size_t llen = 0;
 
-	var.len_queue = 0;
-	var.len_stack = 0;
+	var.q_len = 0;
+	var.s_len = 0;
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");

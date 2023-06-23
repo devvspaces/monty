@@ -5,9 +5,9 @@
  *
  * @stack: pointer to top node of a stack
  * @oper: string copy of stack instruction
- * @line: the current file line number calling instruction
+ * @span: the current file span number calling instruction
  */
-void call_opcode(stack_t **stack, char *oper, unsigned int line)
+void call_opcode(stack_t **stack, char *oper, unsigned int span)
 {
 	int c;
 
@@ -34,9 +34,9 @@ void call_opcode(stack_t **stack, char *oper, unsigned int line)
 	for (c = 0; all_opers[c].opcode != NULL; c++)
 		if (strcmp(oper, all_opers[c].opcode) == 0)
 		{
-			all_opers[c].f(stack, line);
+			all_opers[c].f(stack, span);
 			return;
 		}
-	fprintf(stderr, "L%u: unknown instruction %s\n", line, oper);
+	fprintf(stderr, "L%u: unknown instruction %s\n", span, oper);
 	exit(EXIT_FAILURE);
 }

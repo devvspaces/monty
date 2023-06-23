@@ -30,7 +30,7 @@ stack_t *add_node(stack_t **stack, const int n)
 		(*stack)->prev = new;
 		new->next = *stack;
 	}
-	if (var.len_queue == LIFO || var.len_stack == 0)
+	if (var.q_len == LIFO || var.s_len == 0)
 		*stack = new;
 	return (new);
 }
