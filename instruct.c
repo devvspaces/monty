@@ -53,6 +53,7 @@ void op_pall(stack_t **stack, unsigned int line)
 void op_pint(stack_t **stack, unsigned int line)
 {
 	stack_t *head = *stack;
+
 	if (var.len_stack == 0)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line);

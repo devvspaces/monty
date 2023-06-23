@@ -34,7 +34,7 @@ void set_queue(stack_t **stack, unsigned int line)
 
 /**
  * set_op_flow - sets the format of the data to a stack (LIFO)
- * 
+ *
  * @stack: top of the stack
  * @line: script line number
  */
